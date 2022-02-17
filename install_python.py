@@ -14,6 +14,7 @@ if __name__ == '__main__':  # noqa
     remove = False
     version = None
     for arg in sys.argv[1:]:
+        #print(arg)
         if arg.startswith('-'):
             if arg in ('-f', '--force'):
                 force = True
@@ -25,6 +26,7 @@ if __name__ == '__main__':  # noqa
                 minpoint = int(arg.split('=', 1)[1])
             elif arg.startswith('--out='):
                 dest = arg.split('=', 1)[1]
+                print(dest)
             elif arg in ('-r', '--remove'):
                 remove = True
             elif arg == '--32':
@@ -34,7 +36,9 @@ if __name__ == '__main__':  # noqa
             else:
                 help = True
         elif not version:
+            
             version = arg
+            #print(version)
         else:
             help = True
     if help or not version:
@@ -55,6 +59,7 @@ Specify just the major and minor version, such as 2.7 or 3.6.
     versionList = sorted([(int(ver[len(version) + 1:].strip('/')), ver)
                           for ver in versionList if ver.startswith(version + '.')],
                          reverse=True)
+    response = []
     for subver, ver in versionList:
         if subver < minpoint:
             continue
@@ -73,9 +78,9 @@ Specify just the major and minor version, such as 2.7 or 3.6.
     print('Size: %d, url: %s' % (len(response), url))
     if instdest is None:
         instdest = os.path.split(dest)[0]
-    if not os.path.exists(instdest):
-        os.makedirs(instdest)
-    installer = os.path.join(instdest, url.rsplit('/', 1)[-1])
+    if not os.path.exists(dest):
+        os.makedirs(dest)
+    installer = os.path.join(dest, url.rsplit('/', 1)[-1])
     if os.path.exists(installer) and not force:
         raise Exception('Path already exists: %s' % installer)
     open(installer, 'wb').write(response)
