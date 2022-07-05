@@ -29,7 +29,7 @@ python -m pip install --upgrade pywin32 psutil six setuptools
 # Generate the list of modules we need to import
 Get-ChildItem $PYTHON -Include *.pyc -Recurse | Remove-Item
 Get-ChildItem $PYTHON -Include *.pyo -Recurse | Remove-Item
-#BUILDSCRIPT FOR POWERSHELL
+
 python "modules_pyexe.py" "pyexe.py"
 # Install PyInstaller.  We patch various aspects of PyInstaller, so use a
 # fixed version. Upgraded to latest version of PyInstaller to fix missing libraries for windows dependencies
@@ -61,5 +61,5 @@ popd
 Get-ChildItem $PYTHON -Include *.pyc -Recurse | Remove-Item
 Get-ChildItem $PYTHON -Include *.pyo -Recurse | Remove-Item
 # Save the artifact immediately
-python -m PyInstaller --onefile pyexe.py --upx-dir 'C:\\u\\upx394w' --exclude-module FixTk --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --runtime-hook 'hooks\\rth_subprocess.py' --runtime-hook 'hooks\\rth_pip.py' --icon $PYTHON'\\pythonw.exe' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli-32.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli-64.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\command\\launcher manifest.xml;setuptools' --add-binary 'C:\\Python37\\Lib\\site-packages\\rticonnextdds-connector\\lib\\win-x64\\nddscore.dll;.' --add-binary 'C:\\Python37\\Lib\\site-packages\\rticonnextdds-connector\\lib\\win-x64\\nddsc.dll;.' --add-binary 'C:\\Python37\\Lib\\site-packages\\rticonnextdds-connector\\lib\\win-x64\\rtiddsconnector.dll;.' --add-binary 'C:\\Python37\\Lib\\site-packages\\rticonnextdds-connector\\lib\\win-x64\\msvcr120.dll;.'
+python -m PyInstaller --onefile pyexe.py --upx-dir 'C:\\u\\upx394w' --exclude-module FixTk --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --runtime-hook 'hooks\\rth_subprocess.py' --runtime-hook 'hooks\\rth_pip.py' --icon $PYTHON'\\pythonw.exe' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli-32.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli-64.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\cli.exe;setuptools' --add-binary $PYTHON'\\Lib\\site-packages\\setuptools\\command\\launcher manifest.xml;setuptools' 
 cp 'dist\pyexe.exe' $OUTPUT
